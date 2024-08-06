@@ -71,7 +71,7 @@ class supervised_model:
         print(f"Absolute Model Bias: {numpy.round(abs(self.training_accuracy - self.testing_accuracy),3)}\n")
 
 class semi_supervised_dataset:
-    def __init__(self, path="model/data/ec_food_dataset.csv", n_head=20, drop=[], target=""):
+    def __init__(self, path="Model/data/ec_food_dataset.csv", n_head=20, drop=[], target=""):
         self.path = path
         self.dataset = pandas.read_csv(path).drop(drop, axis=1)
 
@@ -112,13 +112,13 @@ class interface:
 
     def ecf_classifier(self,verbose=True):
         data = semi_supervised_dataset(
-            path = "model/data/ec_food_dataset.csv",
+            path = "Model/data/ec_food_dataset.csv",
             n_head= 25,
             drop=["PRICE","AVG_RATING","NUM_RATING"],
             target = "ECO"
         )
         
-        dataset = pandas.read_csv("model/data/ec_food_supervised.csv")
+        dataset = pandas.read_csv("Model/data/ec_food_supervised.csv")
         
         classifier_params = {
             "C":[0.1,0.01,0.001],
@@ -132,8 +132,8 @@ class interface:
         classifier = semi_supervised_model(SelfTrainingClassifier(base_estimator=best_estimator))
         classifier.fit_estimator(data)
 
-        X_test = numpy.array(pandas.read_csv("model/data/ec_test.csv").drop("ECO",axis=1))
-        y_test = numpy.array(pandas.read_csv("model/data/ec_test.csv")["ECO"])
+        X_test = numpy.array(pandas.read_csv("Model/data/ec_test.csv").drop("ECO",axis=1))
+        y_test = numpy.array(pandas.read_csv("Model/data/ec_test.csv")["ECO"])
         X_train = numpy.array(data.labeled.drop(["ECO"],axis=1))
         y_train = numpy.array(data.labeled["ECO"])
         y_pred = classifier.predict(X_test)
