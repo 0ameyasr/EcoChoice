@@ -1,0 +1,20 @@
+PRODUCT_ID,PRODUCT_NAME,BRAND,PRICE,AVG_RATING,NUM_RATING,PACKAGING,CFOOT,RECYCLE,BIODEG,ORGANIC,EMISSIONS,IMPORTED,PROCESSED
+1,Fresh Honeycrisp Apples Each,Walmart,1.97,1.7,1430,0,0,1,2,0,0,0,0
+2,Fresh Organic Pink Lady Apples,Marketside,1.78,1.9,173,1,1,0,1,1,1,0,0
+3,Fresh Cosmic Crisp Apples,Cosmic Crisp,1.56,2.4,266,2,1,0,0,0,1,1,1
+4,Crunch Pak Fresh Sweet Peeled Apple Slices,Crunch Pak,3.98,2.3,84,2,2,1,1,0,2,0,2
+5,Marketside Fresh Spinach ,Marketside,3.64,2.5,1487,1,1,0,1,0,1,0,0
+6,Great Value Chopped Spinach Frozen,Great Value,1.63,2.7,33,1,2,0,0,0,1,0,2
+7,Great Value Canned Leaf Spinach,Great Value,1.71,4.1,233,2,2,0,1,0,2,0,1
+8,Allens Popeye Chopped Spinach,Allens Popeye,2.16,4.1,143,2,2,0,0,1,1,0,2
+9,Fresh Whole Carrots ,Walmart,0.98,2.2,712,1,0,1,1,0,0,1,0
+10,Baby Peeled Carrots,Bolthouse Farms,1.32,3.9,1848,1,0,0,1,1,0,0,1
+11,Great Value Sliced Canned Carrots,Great Value,1.16,4.2,466,2,1,0,0,0,1,0,2
+12,Great Value Frozen Cut Carrots,Great Value,1.18,3.4,120,1,1,1,1,0,1,0,2
+13,Azumaya Refrigerated Firm Natural Tofu,Nasoya Store,2.13,3.4,61,1,0,0,0,0,1,0,2
+14,Organic Extra Firm Tofu,Nasoya Store,1.95,3.1,69,1,0,0,0,1,1,0,1
+15,Happy Egg Co Organic Free Range Eggs,Happy Egg Co,4.43,4.3,384,1,2,0,1,1,2,0,0
+16,Vital Farms Pasture Raised Grade A Eggs,Vital Farms,4.61,4.8,15852,1,1,1,1,1,1,0,0
+17,Marketside Organic Cage-Free Brown Large Eggs,Marketside,3.34,2.4,504,2,1,1,0,1,2,0,0
+18,Great Value Salted Butter Sticks,,4.73,2.5,92,1,2,0,1,0,2,0,1
+19,Country Crock Original Vegetable Oil Spread,,2.11,4.4,20919,1,2,0,0,1,1,0,0
