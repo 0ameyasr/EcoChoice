@@ -1,20 +1,39 @@
-PRODUCT_ID,PRODUCT_NAME,BRAND,PRICE,AVG_RATING,NUM_RATING,PACKAGING,CFOOT,RECYCLE,BIODEG,ORGANIC,EMISSIONS,IMPORTED,PROCESSED
-1,Fresh Honeycrisp Apples Each,Walmart,1.97,1.7,1430,0,0,1,2,0,0,0,0
-2,Fresh Organic Pink Lady Apples,Marketside,1.78,1.9,173,1,1,0,1,1,1,0,0
-3,Fresh Cosmic Crisp Apples,Cosmic Crisp,1.56,2.4,266,2,1,0,0,0,1,1,1
-4,Crunch Pak Fresh Sweet Peeled Apple Slices,Crunch Pak,3.98,2.3,84,2,2,1,1,0,2,0,2
-5,Marketside Fresh Spinach ,Marketside,3.64,2.5,1487,1,1,0,1,0,1,0,0
-6,Great Value Chopped Spinach Frozen,Great Value,1.63,2.7,33,1,2,0,0,0,1,0,2
-7,Great Value Canned Leaf Spinach,Great Value,1.71,4.1,233,2,2,0,1,0,2,0,1
-8,Allens Popeye Chopped Spinach,Allens Popeye,2.16,4.1,143,2,2,0,0,1,1,0,2
-9,Fresh Whole Carrots ,Walmart,0.98,2.2,712,1,0,1,1,0,0,1,0
-10,Baby Peeled Carrots,Bolthouse Farms,1.32,3.9,1848,1,0,0,1,1,0,0,1
-11,Great Value Sliced Canned Carrots,Great Value,1.16,4.2,466,2,1,0,0,0,1,0,2
-12,Great Value Frozen Cut Carrots,Great Value,1.18,3.4,120,1,1,1,1,0,1,0,2
-13,Azumaya Refrigerated Firm Natural Tofu,Nasoya Store,2.13,3.4,61,1,0,0,0,0,1,0,2
-14,Organic Extra Firm Tofu,Nasoya Store,1.95,3.1,69,1,0,0,0,1,1,0,1
-15,Happy Egg Co Organic Free Range Eggs,Happy Egg Co,4.43,4.3,384,1,2,0,1,1,2,0,0
-16,Vital Farms Pasture Raised Grade A Eggs,Vital Farms,4.61,4.8,15852,1,1,1,1,1,1,0,0
-17,Marketside Organic Cage-Free Brown Large Eggs,Marketside,3.34,2.4,504,2,1,1,0,1,2,0,0
-18,Great Value Salted Butter Sticks,,4.73,2.5,92,1,2,0,1,0,2,0,1
-19,Country Crock Original Vegetable Oil Spread,,2.11,4.4,20919,1,2,0,0,1,1,0,0
+PRODUCT_ID,PRODUCT_NAME,BRAND,PRICE,AVG_RATING,NUM_RATING,PACKAGING,CFOOT,RECYCLE,BIODEG,ORGANIC,EMISSIONS,IMPORTED,PROCESSED,VEGAN,VEG,ENERGY,TOTFAT,CHOL,TOTALCARB,ADDSUG,PROT,VITD,VITA,VITB2,VITB12,VITC,CALC,SOD,IRON,POT,PHOS,MILK,EGGS,PEANUTS,NUTS,SOY,WHEAT,FISH,SHELLFISH,SESAME,MUSTARD,GLUTEN
+1,Fresh Honeycrisp Apples Each,Walmart,1.97,1.7,1430,0,0,1,2,0,0,0,0,1,1,0,0,0,1,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+2,Fresh Organic Pink Lady Apples,Marketside,1.78,1.9,173,1,1,0,1,1,1,0,0,1,1,0,0,0,1,0,0,0,0,0,0,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+3,Fresh Cosmic Crisp Apples,Cosmic Crisp,1.56,2.4,266,2,1,0,0,0,1,1,1,1,1,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+4,Crunch Pak Fresh Sweet Peeled Apple Slices,Crunch Pak,3.98,2.3,84,2,2,1,1,0,2,0,2,1,1,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+5,Marketside Fresh Spinach ,Marketside,3.64,2.5,1487,1,1,0,1,0,1,0,0,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,1,2,2,0,0,0,0,0,0,0,0,0,0,0
+6,Great Value Chopped Spinach Frozen,Great Value,1.63,2.7,33,1,2,0,0,0,1,0,2,1,1,0,0,0,0,0,0,0,0,0,0,0,2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+7,Great Value Canned Leaf Spinach,Great Value,1.71,4.1,233,2,2,0,1,0,2,0,1,1,1,0,0,0,0,0,0,0,0,0,0,0,2,1,1,2,2,0,0,0,0,0,0,0,0,0,0,0
+8,Allens Popeye Chopped Spinach,Allens Popeye,2.16,4.1,143,2,2,0,0,1,1,0,2,1,1,0,0,0,0,0,0,0,0,0,0,0,2,1,1,2,2,0,0,0,0,0,0,0,0,0,0,0
+9,Fresh Whole Carrots ,Walmart,0.98,2.2,712,1,0,1,1,0,0,1,0,1,1,0,0,0,1,0,0,0,2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+10,Baby Peeled Carrots,Bolthouse Farms,1.32,3.9,1848,1,0,0,1,1,0,0,1,1,1,0,0,0,1,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+11,Great Value Sliced Canned Carrots,Great Value,1.16,4.2,466,2,1,0,0,0,1,0,2,1,1,0,0,0,0,0,0,0,1,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+12,Great Value Frozen Cut Carrots,Great Value,1.18,3.4,120,1,1,1,1,0,1,0,2,1,1,0,0,0,1,0,0,0,1,0,0,0,2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+13,Azumaya Refrigerated Firm Natural Tofu,Nasoya Store,2.13,3.4,61,1,0,0,0,0,1,0,2,1,1,0,1,0,0,0,1,0,0,0,0,0,1,0,1,2,2,0,0,0,0,2,0,0,0,0,0,0
+14,Organic Extra Firm Tofu,Nasoya Store,1.95,3.1,69,1,0,0,0,1,1,0,1,1,1,0,1,0,0,0,1,0,0,0,0,0,1,0,1,2,2,0,0,0,0,2,0,0,0,0,0,0
+15,Happy Egg Co Organic Free Range Eggs,Happy Egg Co,4.43,4.3,384,1,2,0,1,1,2,0,0,0,0,0,1,2,0,0,1,0,0,0,2,0,2,0,0,0,0,0,2,0,0,0,0,0,0,0,0,0
+16,Vital Farms Pasture Raised Grade A Eggs,Vital Farms,4.61,4.8,15852,1,1,1,1,1,1,0,0,0,0,0,1,2,0,0,1,0,0,0,2,0,2,0,0,0,0,0,2,0,0,0,0,0,0,0,0,0
+17,Marketside Organic Cage-Free Brown Large Eggs,Marketside,3.34,2.4,504,2,1,1,0,1,2,0,0,0,0,0,1,2,0,0,1,0,0,0,2,0,2,0,0,0,0,0,2,0,0,0,0,0,0,0,0,0
+18,Great Value Salted Butter Sticks,Great Value,4.73,2.5,92,1,2,0,1,0,2,0,1,0,1,0,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,2,0,0,0,0,0,0,0,0,0,0
+19,Country Crock Original Vegetable Oil Spread,Country Crock,2.11,4.4,20919,1,2,0,0,1,1,0,0,1,1,0,1,0,0,0,0,0,2,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0
+20,Horizon Organic Growing Years Milk,Horizon Organic,2.09,4.7,265,1,2,0,0,1,1,0,1,0,1,1,1,1,1,0,1,1,0,1,2,0,2,0,0,0,0,2,0,0,0,0,0,0,0,0,0,0
+21,Great Value Whole Vitamin D Milk Gallon,Great Value,0.5,2.8,6797,1,2,0,0,0,2,0,0,0,1,1,1,1,1,0,1,1,0,1,2,0,2,0,0,0,0,2,0,0,0,0,0,0,0,0,0,0
+22,Ramen Express Chicken Flavor Ramen Noodles (Vegan) ,Ramen Express,3.84,4,233,2,2,0,0,0,2,0,2,1,1,2,1,0,2,1,1,0,0,0,0,0,2,1,0,0,0,0,0,0,0,2,2,0,0,1,0,1
+23,Maruchan Ramen Noodle Soup Chicken Flavor,Maruchan,1.76,4,311,2,1,0,0,0,2,1,2,0,0,1,1,0,2,1,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,2,2,1,1,0,0,0
+24,Boneless Skinless Chicken Breasts,Freshness Guaranteed,2.67,3.3,2281,1,1,0,0,0,2,0,0,0,0,1,1,1,0,0,2,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+25,Fresh Atlantic Salmon Whole Portions,Fresh ,9.67,1.9,608,1,2,0,0,0,2,0,0,0,0,2,1,1,0,0,2,1,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,2,1,0,0,0
+26,Lay's Classic Potato Chips,Lays,4,4.2,2016,1,2,0,0,0,2,0,2,1,1,1,1,0,1,1,0,0,0,0,0,0,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+27,Tyson Fully Cooked Chicken Nuggets,Tyson,3.23,3.1,1167,1,2,0,0,0,2,0,2,0,0,2,1,1,1,0,1,0,0,0,1,0,2,1,0,0,0,0,1,0,0,0,2,0,0,0,0,2
+28,Kraft Original Mac N Cheese,Kraft,2.72,4.6,10220,1,2,0,0,0,1,0,2,0,1,2,1,0,2,0,1,0,0,0,1,0,2,1,0,0,0,2,0,0,0,0,2,0,0,0,0,2
+29,Kraft NotCo Original Flavor Plant Based Mac N Cheese,Kraft,8,3.7,44,1,2,0,0,0,2,0,2,1,0,2,2,0,2,1,1,0,0,0,0,0,2,1,0,0,0,0,0,0,0,0,2,0,0,0,0,2
+30,Red Baron Four Cheese Classic Crust Frozen Pizza,Red Baron,3.52,4.3,570,2,2,0,0,0,1,0,2,0,1,2,1,1,2,1,1,0,0,1,2,0,2,1,0,0,0,2,0,0,0,2,2,0,0,0,0,2
+31,Great Value Singles American Pasteurized Prepared Cheese,Great Value,2.56,3.7,1027,1,1,0,0,0,1,0,1,0,1,0,1,0,0,0,0,0,0,0,1,0,2,1,0,0,0,2,0,0,0,0,0,0,0,0,0,0
+32,Minute Instant White Rice,Minute,2.88,4.4,141,2,2,0,0,0,2,1,1,1,1,1,0,0,2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+33,Barilla Classic Non-GMO Rotini Pasta,Barilla,1.92,4.6,251,1,1,0,0,0,1,1,1,1,1,1,0,0,2,1,1,0,0,1,0,0,1,0,0,0,0,0,0,0,0,0,2,0,0,0,0,2
+34,"Nature Valley Crunchy Granola Bars, Oats and Honey",Nature Valley,5.28,4.5,6058,1,2,0,0,0,1,0,1,1,1,1,1,0,2,1,1,0,0,0,0,0,0,0,0,0,0,0,0,1,1,1,1,0,0,0,0,1
+35,Capri Sun Variety Pack,Capri Sun,9.43,4.6,5418,2,1,0,0,0,1,0,1,1,1,0,0,0,1,2,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+36,Great Value 100% Apple Juice,Great Value,2.98,4.4,2960,1,1,1,0,0,1,0,1,1,1,1,0,0,2,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+37,Bimbo White Bread,Bimbo,1.98,3.1,210,1,1,0,0,0,2,0,1,1,1,1,0,0,2,1,1,1,0,0,0,0,0,1,0,0,0,0,0,0,1,1,2,0,0,2,0,2
+38,Fresh Navel Orange,Fresh Produce,2.64,2.1,1015,0,1,1,1,1,1,0,0,1,1,0,0,0,1,0,0,0,0,0,0,1,2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
