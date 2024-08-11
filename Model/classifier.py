@@ -4,6 +4,8 @@ from sklearn.model_selection import train_test_split
 from sklearn.metrics import accuracy_score
 from sklearn.model_selection import GridSearchCV
 from sklearn.semi_supervised import SelfTrainingClassifier
+from sklearn.ensemble import RandomForestClassifier
+from sklearn.neighbors import KNeighborsClassifier
 from sklearn.svm import SVC
 
 class supervised_dataset:
@@ -29,8 +31,9 @@ class supervised_model:
     
     def find_best_estimator(self,data=supervised_dataset|pandas.DataFrame,verbose=False,cv=5,pandas=False,target="",test_size=0.20):
         if not pandas:
+            self.data = data
             grid_search = GridSearchCV(self.estimator,param_grid=self.model_params,cv=cv)
-            grid_search.fit(data.X_train,data.y_train)
+            grid_search.fit(data.X_train,data.y_train.ravel())
             if verbose:
                 print(f"Best Estimator: {grid_search.best_estimator_}")
             self.best_estimator = grid_search.best_estimator_
@@ -53,7 +56,7 @@ class supervised_model:
         else:
             try:
                 self.data = data
-                self.best_estimator.fit(data.X_train,data.y_train)
+                self.best_estimator.fit(data.X_train,data.y_train.ravel())
                 return True
             except Exception as error:
                 print(f"ERROR: fit_best_estimator > {error}")
@@ -63,12 +66,12 @@ class supervised_model:
         return self.best_estimator.predict(features)
 
     def eval_best_estimator(self):
-        self.testing_accuracy = accuracy_score(self.predict(self.data.X_test),self.data.y_test)
-        self.training_accuracy = accuracy_score(self.predict(self.data.X_train),self.data.y_train)
+        self.testing_accuracy = accuracy_score(self.data.y_test,self.predict(self.data.X_test))
+        self.training_accuracy = accuracy_score(self.data.y_train,self.predict(self.data.X_train))
         print(f"\nBest Estimator: {self.best_estimator}")
         print(f"Training Accuracy Score: {self.training_accuracy}")
         print(f"Testing Accuracy Score: {self.testing_accuracy}")
-        print(f"Absolute Model Bias: {numpy.round(abs(self.training_accuracy - self.testing_accuracy),3)}\n")
+        print(f"Absolute Model Variance: {numpy.round(abs(self.training_accuracy - self.testing_accuracy),3)}\n")
 
 class semi_supervised_dataset:
     def __init__(self, path="Model/data/ec_food_dataset.csv", n_head=20, drop=[], target=""):
@@ -85,7 +88,6 @@ class semi_supervised_dataset:
             self.labeled[target],
             self.unlabeled[target]
         ]))
-
 
 class semi_supervised_model:
     def __init__(self, estimator=SelfTrainingClassifier(base_estimator=LogisticRegression()), param_grid={}):
@@ -143,7 +145,28 @@ class interface:
             print(f"Accuracy Score (Training): {accuracy_score(y_train,classifier.predict(X_train))}")
         return best_estimator
 
+    def ecf_diet_classifier(self,verbose=True):
+        data = supervised_dataset(
+            path="Model/data/ec_diet_dataset.csv",
+            test_size=0.20,
+            split_random_state=0,
+            drop=["DIET"],
+            target=["DIET"]
+        )
+        
+        classifier_params = {
+            "n_estimators":[1000],
+            "max_depth":[5],
+            "random_state":[0]
+        }
+
+        classifier = supervised_model(RandomForestClassifier(),param_grid=classifier_params)
+        best_estimator = classifier.find_best_estimator(data=data,verbose=verbose,target="DIET",cv=2)
+        classifier.fit_best_estimator(data)
+        classifier.eval_best_estimator()
+        return best_estimator
+
 if __name__ == "__main__":
     io = interface()
-    classifier = io.ecf_classifier(verbose=False)
+    classifier = io.ecf_diet_classifier(verbose=False)
     predictor = interface(classifier)

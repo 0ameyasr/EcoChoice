@@ -18,27 +18,38 @@ def make_features():
     return features
 
 def make_diet_features():
-    ENERGY = pandas.DataFrame([random.randint(0,2) for _ in range(500)],columns=["ENERGY"])
-    TOTFAT = pandas.DataFrame([random.randint(0,2) for _ in range(500)],columns=["TOTFAT"])
-    CHOL = pandas.DataFrame([random.randint(0,2) for _ in range(500)],columns=["CHOL"])
-    TOTALCARB = pandas.DataFrame([random.randint(0,2) for _ in range(500)],columns=["TOTALCARB"])
-    ADDSUG = pandas.DataFrame([random.randint(0,2) for _ in range(500)],columns=["ADDSUG"])
-    PROT = pandas.DataFrame([random.randint(0,2) for _ in range(500)],columns=["PROT"])
-    VITD = pandas.DataFrame([random.randint(0,2) for _ in range(500)],columns=["VITD"])
-    VITA = pandas.DataFrame([random.randint(0,2) for _ in range(500)],columns=["VITA"])
-    VITB2 = pandas.DataFrame([random.randint(0,2) for _ in range(500)],columns=["VITB2"])
-    VITB12 = pandas.DataFrame([random.randint(0,2) for _ in range(500)],columns=["VITB12"])
-    VITC = pandas.DataFrame([random.randint(0,2) for _ in range(500)],columns=["VITC"])
-    CALC = pandas.DataFrame([random.randint(0,2) for _ in range(500)],columns=["CALC"])
-    SOD = pandas.DataFrame([random.randint(0,2) for _ in range(500)],columns=["SOD"])
-    IRON = pandas.DataFrame([random.randint(0,2) for _ in range(500)],columns=["IRON"])
-    POT = pandas.DataFrame([random.randint(0,2) for _ in range(500)],columns=["POT"])
-    PHOS = pandas.DataFrame([random.randint(0,2) for _ in range(500)],columns=["PHOS"])
+    ENERGY = pandas.DataFrame([random.randint(0,2) for _ in range(2000)],columns=["ENERGY"])
+    TOTFAT = pandas.DataFrame([random.randint(0,2) for _ in range(2000)],columns=["TOTFAT"])
+    CHOL = pandas.DataFrame([random.randint(0,2) for _ in range(2000)],columns=["CHOL"])
+    TOTALCARB = pandas.DataFrame([random.randint(0,2) for _ in range(2000)],columns=["TOTALCARB"])
+    ADDSUG = pandas.DataFrame([random.randint(0,2) for _ in range(2000)],columns=["ADDSUG"])
+    PROT = pandas.DataFrame([random.randint(0,2) for _ in range(2000)],columns=["PROT"])
+    VITD = pandas.DataFrame([random.randint(0,2) for _ in range(2000)],columns=["VITD"])
+    VITA = pandas.DataFrame([random.randint(0,2) for _ in range(2000)],columns=["VITA"])
+    VITB2 = pandas.DataFrame([random.randint(0,2) for _ in range(2000)],columns=["VITB2"])
+    VITB12 = pandas.DataFrame([random.randint(0,2) for _ in range(2000)],columns=["VITB12"])
+    VITC = pandas.DataFrame([random.randint(0,2) for _ in range(2000)],columns=["VITC"])
+    CALC = pandas.DataFrame([random.randint(0,2) for _ in range(2000)],columns=["CALC"])
+    SOD = pandas.DataFrame([random.randint(0,2) for _ in range(2000)],columns=["SOD"])
+    IRON = pandas.DataFrame([random.randint(0,2) for _ in range(2000)],columns=["IRON"])
+    POT = pandas.DataFrame([random.randint(0,2) for _ in range(2000)],columns=["POT"])
+    PHOS = pandas.DataFrame([random.randint(0,2) for _ in range(2000)],columns=["PHOS"])
     
     features = pandas.concat([ENERGY,TOTFAT,CHOL,TOTALCARB,ADDSUG,PROT,VITD,VITA,VITB2,VITB12,VITC,CALC,SOD,IRON,POT,PHOS], axis=1)
     return features
 
-def commit_dataset(features,path="Model/data/ec_diet_dataset.csv"):
+def make_profile_features():
+    DESCAL = pandas.DataFrame([random.randint(0,2) for _ in range(2000)],columns=["DESCAL"])
+    DESFAT = pandas.DataFrame([random.randint(0,2) for _ in range(2000)],columns=["DESFAT"])
+    MONCHOL = pandas.DataFrame([random.randint(0,1) for _ in range(2000)],columns=["MONCHOL"])
+    MONSUG = pandas.DataFrame([random.randint(0,1) for _ in range(2000)],columns=["MONSUG"])
+    MONPROT = pandas.DataFrame([random.randint(0,2) for _ in range(2000)],columns=["MONPROT"])
+    MONVIT = pandas.DataFrame([random.randint(0,1) for _ in range(2000)],columns=["MONVIT"])
+    MONMIN = pandas.DataFrame([random.randint(0,1) for _ in range(2000)],columns=["MONMIN"])
+    features = pandas.concat([DESCAL,DESFAT,MONCHOL,MONSUG,MONPROT,MONVIT,MONMIN],axis=1)
+    return features
+
+def commit_dataset(features,path="Model/data/ec_profile_dataset.csv"):
     try:
         features.to_csv(path)
         print(f"Dataset successfully commited to {path}")
@@ -46,4 +57,4 @@ def commit_dataset(features,path="Model/data/ec_diet_dataset.csv"):
         print(f"commit_dataset() > An error was encountered: {e}")
 
 if __name__ == "__main__":
-    commit_dataset(make_diet_features())
+    commit_dataset(make_profile_features())

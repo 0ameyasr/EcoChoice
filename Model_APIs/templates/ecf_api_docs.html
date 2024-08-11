@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>EcoChoice Food Classifier API Documentation</title>
+    <title>ECF API</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -37,30 +37,39 @@
 </head>
 <body>
     <div class="container">
-        <h1>EcoChoice Food Classifier API</h1>
-        <p>The EcoChoice Food Classifier API is active!</p>
+        <h1>EcoChoice ECF API</h1>
+        <p>The EcoChoice Food Classifier API is now active!</p>
 
-        <p>If you're willing to run the Flask API on your local machine, beware that by default this API will use port 5000. You can make a prediction by directing a JSON payload on the <code>/predict</code> route. It is mandatory to send your requests jsonified in the following format (as an example):</p>
+        <p>This API runs on port 51000 by default. To make predictions, POST a JSON payload to the <code>/predict</code> route. Ensure your request is formatted as follows:</p>
 
+        <h2>Example JSON Payload</h2>
+        <p>The features should be in the following order: [PACKAGING, CFOOT, RECYCLE, BIODEG, ORGANIC, EMISSIONS, IMPORTED, PROCESSED].</p>
+        <p>Example JSON payload: <code>{"features": [0, 1, 1, 1, 0, 0, 1, 1]}</code> </p>
+
+        <h2>Response Format</h2>
+        <p>For successful predictions, the response will be:</p>
         <pre><code>{
-    "features" : [0,1,1,1,0,0,1,1]
-}</code></pre>
-
-        <p>NOTE: Make sure to use a 1D array. The response is usually a json object as follows:</p>
-
-        <pre><code>{
-    "success": true, 
+    "success": true,
     "verdict": 0 or 1
 }</code></pre>
-
-        <p>(For successful predictions), or</p>
-
+        <p>For unsuccessful predictions, the response will be:</p>
         <pre><code>{
-    "success": false, 
-    "error": &lt;error&gt;
+    "success": false,
+    "error": error
 }</code></pre>
 
-        <p>(For unsuccessful predictions)</p>
+        <p>NOTE: 1 means the item is EcoChoice, and 0 is elsewise.</p>
+        <h2>Features</h2>
+        <ul>
+            <li>PACKAGING: How much plastic packaging the item requires (0 for low, 1 for normal, 2 for high)</li>
+            <li>CFOOT: The item's carbon footprint (0 for low, 1 for normal, 2 for high)</li>
+            <li>RECYCLE: Extent of recyclability (0 for low, 1 for normal, 2 for high)</li>
+            <li>BIODEG: How biodegradable the item or its packaging itself is (0 for low, 1 for normal, 2 for high)</li>
+            <li>ORGANIC: Is the item organic? (0 for true, 1 for false)</li>
+            <li>EMISSIONS: Scale of emissions in production and transport (0 for low, 1 for normal, 2 for high), highly correlated with CFOOT</li>
+            <li>IMPORTED: Is the item imported?</li>
+            <li>PROCESSED: To what extent has the item been processed? (0 for low, 1 for normal, 2 for high)</li>
+        </ul>
     </div>
 </body>
 </html>

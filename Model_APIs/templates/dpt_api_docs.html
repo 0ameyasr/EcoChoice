@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DPT API</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            line-height: 1.6;
+        }
+        .container {
+            max-width: 800px;
+            margin: 20px auto;
+            padding: 20px;
+            border: 1px solid #ccc;
+            border-radius: 10px;
+            background-color: #f9f9f9;
+        }
+        h1, h2 {
+            color: #333;
+        }
+        code {
+            background-color: #eee;
+            padding: 2px 4px;
+            border-radius: 4px;
+        }
+        pre {
+            background-color: #eee;
+            padding: 10px;
+            border-radius: 4px;
+            overflow-x: auto;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>EcoChoice DPT Classifier API</h1>
+        <p>The EcoChoice DPT Classifier API is now active!</p>
+
+        <p>This API runs on port 50000 by default. You can make predictions by sending JSON payloads to the <code>/classify_profile</code> or <code>/best_diets</code> routes. Ensure your requests are formatted as shown below:</p>
+
+        <h2>POST <code>/classify_profile</code></h2>
+        <p>This route classifies a user's profile based on their preferences and needs. It uses the following 7 features: [DESCAL, DESFAT, MONCHOL, MONSUG, MONPROT, MONVIT, MONMIN].</p>
+        <p>Example JSON payload: <code>{"features": [0, 1, 1, 1, 0, 0, 1]}</code> </p>
+
+        <p>(Example) Response format:</p>
+        <pre><code>
+            {
+                "success": true,
+                "verdict": "HLTI"
+            }
+        </code></pre>
+        <p>or</p>
+        <pre><code>
+            {
+                "success": false,
+                "error": "<error_message>"
+            }
+        </code></pre>
+
+        <h2>POST <code>/best_diets</code></h2>
+        <p>This route recommends the best diets based on the user's profile. It uses 14 features: [CHOL, TOTALCARB, ADDSUG, PROT, VITD, VITA, VITB2, VITB12, VITC, CALC, SOD, IRON, POT, PHOS].</p>
+        <p>Example JSON payload:<code>{"features": [0, 1, 1, 1, 0, 0, 1, 1, 0, 0, 1, 1, 0, 1]}</code></p>
+
+        <p>(Example) Response format:</p>
+        <pre><code>
+            {
+                "success": true,
+                "verdict": [
+                    [
+                        0.42032456398010254,
+                        0.27680620551109314,
+                        0.4458279609680176,
+                        0.4440215826034546
+                    ]
+                ]
+            }
+        </code></pre>
+        <p>or</p>
+        <pre><code>
+            {
+                "success": false,
+                "error": "<error_message>"
+            }
+        </code></pre>
+
+        <h2>About the API</h2>
+        <p>
+            <ol>
+                <li>
+                    The POST <code>/classify_profile</code> route:
+                    <p>This route will take 7 features as input. They are as follows,
+                        <ul>
+                            <li>DESCAL: Desired calorie intake.</li>
+                            <li>DESFAT: Desired fat intake.</li>
+                            <li>MONCHOL: Monitoring in cholesterol levels.</li>
+                            <li>MONSUG: Monitoring in sugar levels.</li>
+                            <li>MONPROT: Monitoring in protein levels.</li>
+                            <li>MONVIT: Monitoring in vitamin (overall B2,B12,C,D,A) levels.</li>
+                            <li>MONMIN: Monitoring in mineral (calcium, sodium, iron, potassium, phosphorous) levels.</li>
+                        </ul>
+                        <br>
+                        Based on special calculations and recognizing patterns, the verdict (prediction) will be:
+                        <ul>
+                            <li>"HLTI" - The user's profile is closest to the overall Health Improvement Diet</li>
+                            <li>"VIT_ESS" - The user's profile is closest to the overall Vitamin Essentials Diet</li>
+                            <li>"PROT_IN" - The user's profile is closest to the increased Balanced Protein Intake Diet</li>
+                            <li>"LOW_SOD" - The user's profile best fits a Low Sodium Diet.</li>
+                        </ul>
+                    </p>
+                </li>
+                <li>
+                    The POST <code>/best_diets</code> route:
+                    <p>This route will take 7 features as input. They are as follows,
+                        <ul>
+                            <li>CHOL - cholesterol per daily value in food item</li>
+                            <li>TOTALCARB - total carbohydrates per daily value in food item</li>
+                            <li>ADDSUG - added sugar per daily value in food item</li>
+                            <li>PROT - protein per daily value in food item</li>
+                            <li>VITD - vitamin D per daily value in food item</li>
+                            <li>VITA - vitamin A per daily value in food item</li>
+                            <li>VITB2 - vitamin B2 per daily value in food item</li>
+                            <li>VITB12 - vitamin B12 per daily value in food item</li>
+                            <li>VITC - vitamin C per daily value in food item</li>
+                            <li>CALC - calcium per daily value in food item</li>
+                            <li>SOD - sodium per daily value in food item</li>
+                            <li>IRON - iron per daily value in food item</li>
+                            <li>POT - potassium per daily value in food item</li>
+                            <li>PHOS - phosphorous per daily value in food item</li>
+                        </ul>
+                        <br>
+                        Based on special calculations and recognizing patterns, the verdict (prediction) will be an 
+                        array of probabilities of matches for the various diets in the form given as (matchings 
+                        in scale < 1) [HLTI,VIT_ESS,PROT_IN,LOW_SOD].
+                        The diet with the highest likelihood matching (probability) can be flagged to the item.
+                    </p>
+                </li>
+            </ol>
+        </p>
+        <h2>Integration Workflow</h2>
+        <p>
+            <ol>
+                <li>Allow the user to fill in their preferences details through a form.</li>
+                <li>Based on their responses, fill in ordinal values for each feature.</li>
+                <li>POST /classify_profile to the API</li>
+                <li>Once you have the profile verdict, store it.</li>
+                <li>For items displayed, POST /best_diets for each item efficiently</li>
+                <li>Once you get the probability array through the verdict, extract probabilities for the user's diet profile stored previously.</li>
+                <li>Display the items in sorted order of their matchings to the user's profile.</li>
+            </ol>
+        </p>
+        <h2>Form to be Integrated</h2>
+        <p> Each option is tagged with the ordinal value to be fit into the API.</p>
+        <h2>Nutritional Intake</h2>
+        <ul>
+            <li>Desired calorie intake:
+                <ul class="sub-list">
+                    <li>2 - Increase</li>
+                    <li>1 - Stay normal</li>
+                    <li>0 - Decrease</li>
+                </ul>
+            </li>
+            <li>Desired total fat intake:
+                <ul class="sub-list">
+                    <li>2 - Increase</li>
+                    <li>1 - Stay normal</li>
+                    <li>0 - Decrease</li>
+                </ul>
+            </li>
+        </ul>
+
+        <h2>Monitoring Information</h2>
+        <ul>
+            <li>Monitor cholesterol level to:
+                <ul class="sub-list">
+                    <li>0 - Decrease in general</li>
+                    <li>1 - Remain normal</li>
+                </ul>
+            </li>
+            <li>Monitor added sugar levels to:
+                <ul class="sub-list">
+                    <li>0 - Decrease in general</li>
+                    <li>1 - Remain normal</li>
+                </ul>
+            </li>
+        </ul>
+
+        <h2>Vitamins & Nutrients</h2>
+        <ul>
+            <li>Monitor protein levels to:
+                <ul class="sub-list">
+                    <li>2 - Increase</li>
+                    <li>1 - Stay normal</li>
+                    <li>0 - Decrease</li>
+                </ul>
+            </li>
+            <li>Monitor vitamin levels for:
+                <ul class="sub-list">
+                    <li>Vitamin D:
+                        <ul>
+                            <li>1 - Increase</li>
+                            <li>0 - Stay normal</li>
+                        </ul>
+                    </li>
+                    <li>Vitamin A:
+                        <ul>
+                            <li>1 - Increase</li>
+                            <li>0 - Stay normal</li>
+                        </ul>
+                    </li>
+                    <li>Vitamin B2 (Riboflavin):
+                        <ul>
+                            <li>1 - Increase</li>
+                            <li>0 - Stay normal</li>
+                        </ul>
+                    </li>
+                    <li>Vitamin B12:
+                        <ul>
+                            <li>1 - Increase</li>
+                            <li>0 - Stay normal</li>
+                        </ul>
+                    </li>
+                    <li>Vitamin C:
+                        <ul>
+                            <li>1 - Increase</li>
+                            <li>0 - Stay normal</li>
+                        </ul>
+                    </li>
+                    <li>Vitamin E:
+                        <ul>
+                            <li>1 - Increase</li>
+                            <li>0 - Stay normal</li>
+                        </ul>
+                    </li>
+                </ul>
+            </li>
+        </ul>
+
+        <h2>Minerals</h2>
+        <ul>
+            <li>Monitor mineral levels for:
+                <ul class="sub-list">
+                    <li>Calcium:
+                        <ul>
+                            <li>2 - Increase</li>
+                            <li>1 - Stay normal</li>
+                            <li>0 - Decrease</li>
+                        </ul>
+                    </li>
+                    <li>Sodium (salt):
+                        <ul>
+                            <li>2 - Increase</li>
+                            <li>1 - Stay normal</li>
+                            <li>0 - Decrease</li>
+                        </ul>
+                    </li>
+                    <li>Iron:
+                        <ul>
+                            <li>2 - Increase</li>
+                            <li>1 - Stay normal</li>
+                            <li>0 - Decrease</li>
+                        </ul>
+                    </li>
+                    <li>Potassium:
+                        <ul>
+                            <li>2 - Increase</li>
+                            <li>1 - Stay normal</li>
+                            <li>0 - Decrease</li>
+                        </ul>
+                    </li>
+                    <li>Phosphorous:
+                        <ul>
+                            <li>2 - Increase</li>
+                            <li>1 - Stay normal</li>
+                            <li>0 - Decrease</li>
+                        </ul>
+                    </li>
+                </ul>
+            </li>
+        </ul>
+    </div>
+</body>
+</html>
