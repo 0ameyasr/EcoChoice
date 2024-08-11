@@ -9,5 +9,5 @@ COPY Model /app/Model
 COPY Model_APIs /app/Model_APIs
 ENV FLASK_APP=Model_APIs/ecf_classifier.py
 ENV FLASK_RUN_HOST=0.0.0.0
-EXPOSE 5000
+EXPOSE 51000
 CMD ["flask", "run"]

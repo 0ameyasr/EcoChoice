@@ -1,0 +1,15 @@
+FROM python AS base
+WORKDIR /app
+COPY Model_APIs/requirements.txt .
+RUN pip install flask
+RUN pip install numpy
+RUN pip install torch==2.4.0 --default-timeout=100 --index-url https://download.pytorch.org/whl/test/cpu
+
+FROM base AS final
+WORKDIR /app
+COPY Model /app/Model
+COPY Model_APIs /app/Model_APIs
+ENV FLASK_APP=Model_APIs/dpt_classifier.py
+ENV FLASK_RUN_HOST=0.0.0.0
+EXPOSE 50000
+CMD ["flask", "run"]
