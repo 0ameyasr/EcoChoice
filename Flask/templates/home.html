@@ -1,0 +1,412 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Walmart</title>
+    <link href="static/img/walmart-icon.png" rel="icon">
+    <link href="static/styles/main.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css"/>
+</head>
+
+<body>
+    <nav class="navbar navbar-expand-lg p-1">
+        <a class="navbar-brand text-white" href="/"><img width="50" height="50" src="static/img/walmart-icon.png" alt="Walmart Logo"> Walmart</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav"
+            aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ms-auto">
+                <li class="nav-item">
+                    <a class="nav-link text-white" href="#"><i class="fa-solid fa-user"></i> Account</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link text-white" href="#"><i class="fas fa-shopping-cart"></i> Cart</a>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle text-white" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        <img src="https://github.com/mdo.png" alt="Profile" width="32" height="32" class="rounded-circle">
+                    </a>
+                    <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
+                        <li><a class="dropdown-item" href="#">Profile</a></li>
+                        <li><a class="dropdown-item" href="#">Settings</a></li>
+                        <li><a class="dropdown-item" href="#">Logout</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+    </nav>
+        
+
+    <div class="container mt-4">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="search-bar">
+                    <i class="fas fa-search"></i>
+                    <form id="searchForm">
+                        <input required type="text" class="form-control" placeholder="Search everything at Walmart online and in store" id="searchInput">
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <br>
+    {% if not session["SURVEY"]: %}
+    <div class="container alert alert-success" role="alert">
+        <h3><i class="fa-solid fa-leaf"></i> We Need Your Help</h3>
+        <p>
+            Take a quick survey to help us tailor a personalized experience for your nutritional and dietary needs. 
+            Your feedback matters!
+        </p>
+        <button type="button" class="btn btn-lg btn-primary" data-bs-toggle="modal" data-bs-target="#surveyModal">
+            Begin Survey
+        </button>
+    </div>
+    {% endif %}
+
+    {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+          {% for category, message in messages %}
+            <div class="toast toast-top-right" role="alert" aria-live="assertive" aria-atomic="true">
+              <div class="toast-header">
+                <img src="/static/img/walmart-icon.png" width="32" height="32" class="rounded me-2">
+                <strong class="me-auto">Walmart</strong>
+                <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+              </div>
+              <div class="toast-body">
+                {{ message }}
+              </div>
+            </div>
+          {% endfor %}
+        {% endif %}
+    {% endwith %}
+
+    <div class="modal fade" id="surveyModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1">
+        <div class="modal-dialog">
+            <div class="modal-content profile-content">
+                <div class="modal-header border-none">
+                    <h1 class="modal-title fs-5 fw-bold" id="profile-title">Nutritional Intake Survey</h1>
+                </div>
+                <form action="/profile_survey" method="POST">
+                    <div class="modal-body border-none">
+    
+                        <!-- Nutritional Intake Section -->
+                        <h5 class="fw-bold">Nutritional Intake</h5>
+                        <div class="mb-3">
+                            <label class="form-label"><i>Desired calorie intake:</i></label>
+                            <div>
+                                <input required type="radio" id="calorie_increase" name="calorie_intake" value="2">
+                                <label for="calorie_increase">Increase</label>
+                            </div>
+                            <div>
+                                <input required type="radio" id="calorie_stay" name="calorie_intake" value="1">
+                                <label for="calorie_stay">Stay normal</label>
+                            </div>
+                            <div>
+                                <input required type="radio" id="calorie_decrease" name="calorie_intake" value="0">
+                                <label for="calorie_decrease">Decrease</label>
+                            </div>
+                        </div>
+    
+                        <div class="mb-3">
+                            <label class="form-label"><i>Desired total fat intake:</i></label>
+                            <div>
+                                <input required type="radio" id="fat_increase" name="fat_intake" value="2">
+                                <label for="fat_increase">Increase</label>
+                            </div>
+                            <div>
+                                <input required type="radio" id="fat_stay" name="fat_intake" value="1">
+                                <label for="fat_stay">Stay normal</label>
+                            </div>
+                            <div>
+                                <input required type="radio" id="fat_decrease" name="fat_intake" value="0">
+                                <label for="fat_decrease">Decrease</label>
+                            </div>
+                        </div>
+    
+                        <!-- Monitoring Information Section -->
+                        <h5 class="fw-bold">Monitoring Information</h5>
+                        <div class="mb-3">
+                            <label class="form-label"><i>Monitor cholesterol level to:</i></label>
+                            <div>
+                                <input required type="radio" id="cholesterol_decrease" name="cholesterol_monitor" value="0">
+                                <label for="cholesterol_decrease">Decrease in general</label>
+                            </div>
+                            <div>
+                                <input required type="radio" id="cholesterol_normal" name="cholesterol_monitor" value="1">
+                                <label for="cholesterol_normal">Remain normal</label>
+                            </div>
+                        </div>
+    
+                        <div class="mb-3">
+                            <label class="form-label"><i>Monitor added sugar levels to:</i></label>
+                            <div>
+                                <input required type="radio" id="sugar_decrease" name="sugar_monitor" value="0">
+                                <label for="sugar_decrease">Decrease in general</label>
+                            </div>
+                            <div>
+                                <input required type="radio" id="sugar_normal" name="sugar_monitor" value="1">
+                                <label for="sugar_normal">Remain normal</label>
+                            </div>
+                        </div>
+    
+                        <!-- Vitamins & Nutrients Section -->
+                        <h5 class="fw-bold">Vitamins & Nutrients</h5>
+                        <div class="mb-3">
+                            <label class="form-label"><i>Monitor protein levels to:</i></label>
+                            <div>
+                                <input required type="radio" id="protein_increase" name="protein_monitor" value="2">
+                                <label for="protein_increase">Increase</label>
+                            </div>
+                            <div>
+                                <input required type="radio" id="protein_stay" name="protein_monitor" value="1">
+                                <label for="protein_stay">Stay normal</label>
+                            </div>
+                            <div>
+                                <input required type="radio" id="protein_decrease" name="protein_monitor" value="0">
+                                <label for="protein_decrease">Decrease</label>
+                            </div>
+                        </div>
+    
+                        <div class="mb-3">
+                            <label class="form-label"><i>Monitor vitamin levels for:</i></label>
+                            <br>
+                            <label class="form-label mt-2">Vitamin D:</label>
+                            <div>
+                                <input required type="radio" id="vit_d_increase" name="vit_d_monitor" value="1">
+                                <label for="vit_d_increase">Increase</label>
+                            </div>
+                            <div>
+                                <input required type="radio" id="vit_d_normal" name="vit_d_monitor" value="0">
+                                <label for="vit_d_normal">Stay normal</label>
+                            </div>
+    
+                            <label class="form-label mt-2">Vitamin A:</label>
+                            <div>
+                                <input required type="radio" id="vit_a_increase" name="vit_a_monitor" value="1">
+                                <label for="vit_a_increase">Increase</label>
+                            </div>
+                            <div>
+                                <input required type="radio" id="vit_a_normal" name="vit_a_monitor" value="0">
+                                <label for="vit_a_normal">Stay normal</label>
+                            </div>
+    
+                            <label class="form-label mt-2">Vitamin B2 (Riboflavin):</label>
+                            <div>
+                                <input required type="radio" id="vit_b2_increase" name="vit_b2_monitor" value="1">
+                                <label for="vit_b2_increase">Increase</label>
+                            </div>
+                            <div>
+                                <input required type="radio" id="vit_b2_normal" name="vit_b2_monitor" value="0">
+                                <label for="vit_b2_normal">Stay normal</label>
+                            </div>
+    
+                            <label class="form-label mt-2">Vitamin B12:</label>
+                            <div>
+                                <input required type="radio" id="vit_b12_increase" name="vit_b12_monitor" value="1">
+                                <label for="vit_b12_increase">Increase</label>
+                            </div>
+                            <div>
+                                <input required type="radio" id="vit_b12_normal" name="vit_b12_monitor" value="0">
+                                <label for="vit_b12_normal">Stay normal</label>
+                            </div>
+    
+                            <label class="form-label mt-2">Vitamin C:</label>
+                            <div>
+                                <input required type="radio" id="vit_c_increase" name="vit_c_monitor" value="1">
+                                <label for="vit_c_increase">Increase</label>
+                            </div>
+                            <div>
+                                <input required type="radio" id="vit_c_normal" name="vit_c_monitor" value="0">
+                                <label for="vit_c_normal">Stay normal</label>
+                            </div>
+    
+                            <label class="form-label mt-2">Vitamin E:</label>
+                            <div>
+                                <input required type="radio" id="vit_e_increase" name="vit_e_monitor" value="1">
+                                <label for="vit_e_increase">Increase</label>
+                            </div>
+                            <div>
+                                <input required type="radio" id="vit_e_normal" name="vit_e_monitor" value="0">
+                                <label for="vit_e_normal">Stay normal</label>
+                            </div>
+                        </div>
+    
+                        <!-- Minerals Section -->
+                        <h5 class="fw-bold">Minerals</h5>
+                        <div class="mb-3">
+                            <label class="form-label"><i>Monitor mineral levels for:</i></label>
+                            <br>
+                            <label class="form-label mt-2">Calcium:</label>
+                            <div>
+                                <input required type="radio" id="calcium_increase" name="calcium_monitor" value="2">
+                                <label for="calcium_increase">Increase</label>
+                            </div>
+                            <div>
+                                <input required type="radio" id="calcium_stay" name="calcium_monitor" value="1">
+                                <label for="calcium_stay">Stay normal</label>
+                            </div>
+                            <div>
+                                <input required type="radio" id="calcium_decrease" name="calcium_monitor" value="0">
+                                <label for="calcium_decrease">Decrease</label>
+                            </div>
+    
+                            <label class="form-label mt-2">Sodium (salt):</label>
+                            <div>
+                                <input required type="radio" id="sodium_increase" name="sodium_monitor" value="2">
+                                <label for="sodium_increase">Increase</label>
+                            </div>
+                            <div>
+                                <input required type="radio" id="sodium_stay" name="sodium_monitor" value="1">
+                                <label for="sodium_stay">Stay normal</label>
+                            </div>
+                            <div>
+                                <input required type="radio" id="sodium_decrease" name="sodium_monitor" value="0">
+                                <label for="sodium_decrease">Decrease</label>
+                            </div>
+    
+                            <label class="form-label mt-2">Iron:</label>
+                            <div>
+                                <input required type="radio" id="iron_increase" name="iron_monitor" value="2">
+                                <label for="iron_increase">Increase</label>
+                            </div>
+                            <div>
+                                <input required type="radio" id="iron_stay" name="iron_monitor" value="1">
+                                <label for="iron_stay">Stay normal</label>
+                            </div>
+                            <div>
+                                <input required type="radio" id="iron_decrease" name="iron_monitor" value="0">
+                                <label for="iron_decrease">Decrease</label>
+                            </div>
+    
+                            <label class="form-label mt-2">Potassium:</label>
+                            <div>
+                                <input required type="radio" id="potassium_increase" name="potassium_monitor" value="2">
+                                <label for="potassium_increase">Increase</label>
+                            </div>
+                            <div>
+                                <input required type="radio" id="potassium_stay" name="potassium_monitor" value="1">
+                                <label for="potassium_stay">Stay normal</label>
+                            </div>
+                            <div>
+                                <input required type="radio" id="potassium_decrease" name="potassium_monitor" value="0">
+                                <label for="potassium_decrease">Decrease</label>
+                            </div>
+    
+                            <label class="form-label mt-2">Phosphorous:</label>
+                            <div>
+                                <input required type="radio" id="phosphorous_increase" name="phosphorous_monitor" value="2">
+                                <label for="phosphorous_increase">Increase</label>
+                            </div>
+                            <div>
+                                <input required type="radio" id="phosphorous_stay" name="phosphorous_monitor" value="1">
+                                <label for="phosphorous_stay">Stay normal</label>
+                            </div>
+                            <div>
+                                <input required type="radio" id="phosphorous_decrease" name="phosphorous_monitor" value="0">
+                                <label for="phosphorous_decrease">Decrease</label>
+                            </div>
+                        </div>
+    
+                    </div>
+                    <div class="modal-footer border-none">
+                        <button type="submit" class="btn btn-primary">Submit</button>
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    
+
+    <div class="container hero-section mt-4 border rounded-3">
+        <div class="row">
+            <div class="col-md-8">
+                <div class="card">
+                    <img class="card-img-top" src="https://via.placeholder.com/750x300" alt="School Gear">
+                    <div class="card-body">
+                        <h5 class="card-title">School Gear, Check! Ace the Year</h5>
+                        <p class="card-text">Shop all the school essentials and more. From 50¢.</p>
+                        <a href="#" class="btn btn-primary">Shop All</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card mb-3">
+                    <img class="card-img-top" src="https://via.placeholder.com/350x200" alt="Trending Dorm">
+                    <div class="card-body">
+                        <h5 class="card-title">Trending Dorm Inspo</h5>
+                        <a href="#" class="btn btn-primary">Shop Now</a>
+                    </div>
+                </div>
+                <div class="card">
+                    <img class="card-img-top" src="https://via.placeholder.com/350x200" alt="Seasonal Beauty Faves">
+                    <div class="card-body">
+                        <h5 class="card-title">Seasonal Beauty Faves</h5>
+                        <a href="#" class="btn btn-primary">Shop Now</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="container mt-4">
+        <div class="row">
+            <div class="col-md-4">
+                <div class="card">
+                    <img class="card-img-top" src="https://via.placeholder.com/350x200" alt="Coolest Room">
+                    <div class="card-body">
+                        <h5 class="card-title">Coolest Room in the Hall</h5>
+                        <a href="#" class="btn btn-primary">Shop Furniture</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card">
+                    <img class="card-img-top" src="https://via.placeholder.com/350x200" alt="Tune into Fall">
+                    <div class="card-body">
+                        <h5 class="card-title">Tune into Fall: New TVs</h5>
+                        <a href="#" class="btn btn-primary">Shop Now</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card">
+                    <img class="card-img-top" src="https://via.placeholder.com/350x200" alt="Rake in Leaves">
+                    <div class="card-body">
+                        <h5 class="card-title">Rake in Leaves & Low Prices</h5>
+                        <a href="#" class="btn btn-primary">Shop Now</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <footer class="text-center mt-4 py-4">
+        <p>&copy; 2024 Walmart Clone | All Rights Reserved</p>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.min.js" integrity="sha384-BBtl+eGJRgqQAUMxJ7pMwbEyER4l1g+O15P+16Ep7Q9Q+zqX6gSbd85u4mG4QzX+" crossorigin="anonymous"></script>
+    <script>
+        document.getElementById('searchForm').addEventListener('submit', function(event) {
+            const searchInput = document.getElementById('searchInput').value.toLowerCase();
+            if (searchInput.includes('food')) {
+                event.preventDefault(); 
+                window.location.href = '/food';
+            }
+        });
+    </script>
+    <script>
+        $(document).ready(function() {
+          $('.toast').toast('show');
+        });
+      </script>
+</body>
+
+</html>

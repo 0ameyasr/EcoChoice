@@ -1,0 +1,132 @@
+.navbar {
+    background-color: #0071ce;
+    color: #ddd;
+}
+
+.navbar-brand {
+    color: #fff;
+}
+
+.navbar-brand:hover {
+    color: #fff;
+}
+
+.search-bar {
+    position: relative;
+}
+
+.search-bar input {
+    border-radius: 50px;
+    padding-left: 40px;
+    padding-right: 20px;
+    border: 1px solid #ddd;
+}
+
+.bg-food {
+    position: relative;
+    background-image: url('/static/img/food.jpg');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    height: 300px; 
+    color: black;
+    font-weight: bold;
+    overflow: hidden; 
+}
+
+.bg-food::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(255, 255, 255, 0.5); 
+    z-index: 1; 
+}
+
+.featurette {
+    position: relative;
+    z-index: 2; 
+    text-align: center;
+    padding: 20px; 
+    background: rgba(255, 255, 255, 0.8); 
+    border-radius: 8px; 
+    max-width: 600px;
+    margin: 0 auto; 
+    transform: translateY(-50%); 
+    position: absolute;
+    bottom: 10px;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+
+
+.text-muted {
+    color: rgba(255, 255, 255, 0.75);
+}
+
+
+.toast-top-right {
+    position: fixed;
+    top: 1rem;
+    right: 1rem;
+    z-index: 1050;
+}
+
+.search-bar .fa-search {
+    position: absolute;
+    left: 15px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #777;
+}
+
+.hero-section {
+    background-color: #f3f3f3;
+    padding: 30px 0;
+}
+
+.card {
+    border: none;
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+.card-img-top {
+    border-bottom-left-radius: 0;
+    border-bottom-right-radius: 0;
+}
+
+.card-body {
+    text-align: center;
+}
+
+.card-body h5 {
+    font-size: 1.2rem;
+}
+
+.card-body p {
+    font-size: 0.9rem;
+}
+
+@media (max-width: 767px) {
+    .search-bar {
+        margin-bottom: 15px;
+    }
+}
+
+.hero-section {
+    background-size: cover;
+    background-position: center;
+    color: white;
+    padding: 100px 0;
+    text-align: center;
+}
+.hero-content {
+    background-color: rgba(0, 0, 0, 0.5);
+    padding: 30px;
+    border-radius: 10px;
+}
+
