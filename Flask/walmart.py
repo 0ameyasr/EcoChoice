@@ -3,6 +3,7 @@ from flask import Flask, request, session, redirect, render_template, flash
 import requests
 import configparser
 from pymongo import MongoClient
+import json
 
 
 app = Flask(__name__)
@@ -70,9 +71,43 @@ def index():
         )
     }
 
-
     for product in all_products:
         product['_id'] = str(product['_id'])
+
+        payload = {
+            "features": [
+                product["CHOL"],
+                product["TOTALCARB"],
+                product["ADDSUG"],
+                product["PROT"],
+                product["VITD"],
+                product["VITA"],
+                product["VITB2"],
+                product["VITB12"],
+                product["VITC"],
+                product["CALC"],
+                product["SOD"],
+                product["IRON"],
+                product["POT"],
+                product["PHOS"]
+            ]
+        }
+
+        api_url = "http://localhost:9000/best_diets"
+        response = requests.post(api_url, json=payload)
+        response = response.json()
+        if response["success"] == True:
+            verdict = response["verdict"][0]
+            HLTI = verdict[0]
+            VIT_ESS = verdict[1]
+            PROT_IN = verdict[2]
+            LOW_SOD = verdict[3]
+            collection.update_one({"_id":product["_id"]},{"$set":{
+                "HLTI":HLTI,
+                "VIT_ESS":VIT_ESS,
+                "PROT_IN":PROT_IN,
+                "LOW_SOD":LOW_SOD
+            }})
 
         product_class = product.get('CLASS')
         if product_class in categories:
@@ -83,19 +118,9 @@ def index():
             prot_in = product.get('PROT_IN', 0)
             low_sod = product.get('LOW_SOD', 0)
 
-            max_value = max(hlti, vit_ess, prot_in, low_sod)
-            max_field = None
-
-            if max_value == hlti:
-                max_field = 'HLTI'
-            elif max_value == vit_ess:
-                max_field = 'VIT_ESS'
-            elif max_value == prot_in:
-                max_field = 'PROT_IN'
-            elif max_value == low_sod:
-                max_field = 'LOW_SOD'
-
-            if max_field == user_profile:
+            product_match=product.get(user_profile,"NULL") 
+            
+            if product_match > 0.45:
                 suggested.append(product)
 
     session['suggested'] = suggested
