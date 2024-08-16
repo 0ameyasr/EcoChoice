@@ -11,9 +11,9 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css" />
 </head>
 
-<body>
+<body class="products-body">
     <nav class="navbar navbar-expand-lg fixed-top">
-        <a class="navbar-brand" href="/">
+        <a class="text-light navbar-brand" href="/">
             <img width="50" height="50" src="static/img/walmart-icon.png" alt="Walmart Logo"> Walmart
         </a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav"
@@ -82,6 +82,8 @@
                                 <i class="fas fa-leaf"></i> EcoChoice
                             </span>
                             {% endif %}
+                            <span class="badge text-bg-info">Food</span>
+                            <span class="badge text-bg-primary"><i class="fas fa-thumbs-up"></i> Recommended</span>
                         </div>
                         
                         <img width="200" height="400" src="/static/img/{{ product.IMAGE }}" class="card-img-top" alt="{{ product.PRODUCT_NAME }}">
@@ -118,6 +120,7 @@
                 <h2 class="text-center mb-4">{{ category|capitalize }}</h2>
                 <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-4">
                     {% for product in products %}
+                    {% if product not in session["suggested"]: %}
                     <div class="col">
                         <div class="card shadow-sm">
                             <div class="card-header d-flex justify-content-between align-items-center">
@@ -126,6 +129,7 @@
                                     <i class="fas fa-leaf"></i> EcoChoice
                                 </span>
                                 {% endif %}
+                                <span class="badge text-bg-info">Food</span>
                             </div>
    
                             <img width="200" height="400" src="/static/img/{{ product.IMAGE }}" class="card-img-top" alt="{{ product.PRODUCT_NAME }}">
@@ -140,7 +144,8 @@
                                 </div>
                             </div>
                         </div>
-                    </div>                    
+                    </div>  
+                    {% endif %}                  
                     {% endfor %}
                 </div>
                 <hr>
